@@ -8,8 +8,19 @@ using System.IO;
 
 namespace Spektrum_Fertig
 {
-    class Spektrum
+    public class Spektrum
     {
+
+        private double[] speicherrr;
+        public double[] Speicherrr
+        {
+            get { return speicherrr; }
+            set { speicherrr = value; }
+        }
+
+
+
+
         private List<string> spalte1 = new List<string>();
         public List<string> Spalte1
         {
@@ -60,12 +71,12 @@ namespace Spektrum_Fertig
 
         }
 
-        private string path = "";
+        /*private string path = "";
         public string Path
         {
             get { return path; }   // get method
             set { path = value; }  // set method
-        }
+        }*/
 
 
 
@@ -119,7 +130,24 @@ namespace Spektrum_Fertig
             set { counts_segment = value; }
         }
 
-       
+        private List<double> zwwell = new List<double>();
+        public List<double> Zwwell
+        {
+            get { return zwwell; }
+            set { zwwell = value; }
+        }
+
+
+        private List<double> zwcount = new List<double>();
+        public List<double> Zwcount
+        {
+            get { return zwcount; }
+            set { zwcount = value; }
+        }
+
+        int index = 0;
+
+
 
         /* Methoden
         *  
@@ -127,43 +155,170 @@ namespace Spektrum_Fertig
         */
 
 
-        public int readTextFile()
+        public int readTextFile(string path)
         {
             //lese aus file(tabelle in 2 Listen speichern, aufgeteilt in Wellenlänge und counts)
 
             using (StreamReader lesen = new StreamReader(path))
             {
-               //solange Daten lesen bis zum ende des Streams
-                    while (!lesen.EndOfStream)
-                    {
-                        zwspeicher = lesen.ReadLine();
-                        string[] speicher = zwspeicher.Split("\t".ToCharArray());
-                        spalte1.Add(speicher[0]);
-                        spalte2.Add(speicher[1]);
+                //solange Daten lesen bis zum ende des Streams
+                while (!lesen.EndOfStream)
+                {
+                    zwspeicher = lesen.ReadLine();
+                    string[] speicher = zwspeicher.Split("\t".ToCharArray());
+                    spalte1.Add(speicher[0]);
+                    spalte2.Add(speicher[1]);
 
                 }
 
 
-                    //Wellenlänge =Spalte 1 der excel Tabelle, Counts =spalte 2 und konvertieren in double
-                    wellenlaenge = spalte1.Select(s => double.Parse(s)).ToList();
-                    counts = spalte2.Select(r => double.Parse(r)).ToList();
+                //Wellenlänge =Spalte 1 der excel Tabelle, Counts =spalte 2 und konvertieren in double
+                wellenlaenge = spalte1.Select(s => double.Parse(s)).ToList();
+                counts = spalte2.Select(r => double.Parse(r)).ToList();
 
-                }
-            
-           
+            }
+
+
 
             //wende Methoden auf Inhalt an. Die Ursprungslisten bleibt dabei erhalten
             //  zieht offset von counts ab und schiebt das Ergebniss in offset_liste
             /* normierung(counts, einsnormiert); //normiert counts und schiebt Ergebniss in einsnormiert
                                                //normierung(offset_liste, offset_einsnormiert);                                    //normiert offset_liste und schiebt Ergebniss in einsnormiert
              offsetabziehen(X1, X2, counts, offset_liste);
-
              segmentausschneiden(X1, X2, counts, counts_segment);
              segmentausschneiden(X1, X2, wellenlaenge, well_segment);*/
 
-            return 0;
+           speicherrr = new double[1221];
+            int z = 0;
+            for(int i = 180; i <= 1400; i++)
+            {
+                speicherrr[z] = i;
+                z++;
+
+            }
+            int zahler = 0;
+            double laufindex = 0.0;
+            for(int i = 0; i < speicherrr.Length; i++)
+            {
+                for (int j = 0; j < wellenlaenge.Count; j++)
+                {
+
+
+                    if (speicherrr[i] == wellenlaenge[j])
+                    {
+                        zwwell.Add(wellenlaenge[j]);
+                        zwcount.Add(counts[j]);
+                        zahler++;
+                        if (zahler == 1) { laufindex = wellenlaenge[j]-180; }
+                        else { }
+
+
+                    }
+                    else
+                    {
+                       
+                    }
+
+                }
+            }
+
+            z = 0;
+
+            if (zwwell.Count == 1221)
+            {
+                wellenlaenge.Clear();
+                counts.Clear();
+                for (int i = 0; i < zwwell.Count; i++)
+                {
+                    wellenlaenge.Add(zwwell[i]);
+                    counts.Add(zwcount[i]);
+                }
+            }
+            else
+            {
+                wellenlaenge.Clear();
+                counts.Clear();
+
+                if (zwwell[0] != 180 && zwwell[zwwell.Count - 1] != 1400) {
+
+                    while (z <= laufindex - 1)
+                    {
+                        wellenlaenge.Add(180 + z);
+                        counts.Add(0);
+
+                        z++;
+
+                    }
+                for (int i = 0; i < zwwell.Count; i++)
+                {
+                    wellenlaenge.Add(zwwell[i]);
+                    counts.Add(zwcount[i]);
+
+                }
+
+                    laufindex = 1400 - zwwell[zwwell.Count-1];
+                    index = 0;
+                    while (laufindex!=index) { 
+
+                        //zwwell.Add(1400-laufindex);
+                        wellenlaenge.Add(1400-laufindex+1);
+                        counts.Add(0);
+                        laufindex--;
+
+                }
+                    
+                
+                }
+            
+
+
+            
+               else if (zwwell[0] == 180 && zwwell[zwwell.Count - 1] != 1400)
+                {
+                    laufindex = 1400 - zwwell[zwwell.Count - 1];
+                    index = 0;
+                    while (laufindex != index)
+                    {
+
+                        //zwwell.Add(1400-laufindex);
+                        wellenlaenge.Add(1400 - laufindex + 1);
+                        counts.Add(0);
+                        laufindex--;
+
+                    }
+
+                }
+                else if (zwwell[0] != 180 && zwwell[zwwell.Count - 1] == 1400)
+                {
+
+                    while (z <= laufindex - 1)
+                    {
+                        wellenlaenge.Add(180 + z);
+                        counts.Add(0);
+
+                        z++;
+
+                    }
+                    for (int i = 0; i < zwwell.Count; i++)
+                    {
+                        wellenlaenge.Add(zwwell[i]);
+                        counts.Add(zwcount[i]);
+
+                    }
+
+
+
+                }
+
+
+
+            }
+             
+
+
+                return 0;
         }
-    
+
 
 
         //Normierung übergabe von Ursprungsliste und Zielliste
@@ -184,14 +339,18 @@ namespace Spektrum_Fertig
                 flag = true;
                 return 0;
             }
-            else {
+            else
+            {
 
                 //Wenn flag = true Liste bereits normiert=> Ursprungsliste=Zielliste
-                for (int i = 0; i <= Ursprungsliste.Count - 1; i++) {
+                for (int i = 0; i <= Ursprungsliste.Count - 1; i++)
+                {
 
-                    Zielliste.Add(Ursprungsliste[i]); } 
-                
-                return 0; }
+                    Zielliste.Add(Ursprungsliste[i]);
+                }
+
+                return 0;
+            }
 
         }
 
@@ -210,7 +369,7 @@ namespace Spektrum_Fertig
             }
             double mittelwert = zwmittelwert / distanz;
 
-            
+
             for (int k = 0; k <= Ursprungsliste.Count - 1; k++)
             {
 
@@ -253,7 +412,7 @@ namespace Spektrum_Fertig
         }
 
 
-           
+
 
     }
 }

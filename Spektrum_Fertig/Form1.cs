@@ -14,6 +14,7 @@ namespace Spektrum_Fertig
     public partial class Form1 : Form
     {
         Spektrum test1 = new Spektrum();
+        //GefährdungBerechnen test2 = new GefährdungBerechnen();
 
         public Form1()
         {
@@ -24,13 +25,13 @@ namespace Spektrum_Fertig
         {
             try
             {
-                test1.Path = @ConfigurationManager.AppSettings["Speicherort"]; //setzt Eigenschaft "Path" der Instanz auf den gewÃ¼nschten Wert
+                //test1.Path = @"E:\Bachelorarbeit Versuch 1\WirkBlaulicht.txt"; //setzt Eigenschaft "Path" der Instanz auf den gewÃ¼nschten Wert
             }
             catch { MessageBox.Show("Fehler im Dateipfad"); }
             {
                 try
                 {
-                    test1.readTextFile(); //lese Wellenlänge und counts aus
+                    test1.readTextFile(@"E:\Bachelorarbeit Versuch 1\Spektrum_1.txt"); //lese Wellenlänge und counts aus
                 }
                 catch { MessageBox.Show("Fehler beim beim Laden.(Datei unterschiedliche Lang? Nur nullen ?"); }
             }
@@ -59,16 +60,25 @@ namespace Spektrum_Fertig
         //Normieren
         private void Normieren_Click(object sender, EventArgs e)
         {
-            test1.normierung(test1.Counts, test1.Einsnormiert);//normiert auf knopf druck counts und speichert es in einsnormiert ab
+            for(int i = 0; i < test1.Counts.Count; i++)
+            {
+                test1.Einsnormiert.Add(test1.Counts[i]);
+
+
+            }
+            test1.Counts.Clear();
+
+            test1.normierung(test1.Einsnormiert, test1.Counts);//normiert auf knopf druck counts und speichert es in einsnormiert ab
 
             for (int i = 0; i <= test1.Counts.Count - 1; i++)
             {
-                Funktion_normiert.Series["Series1"].Points.AddXY(test1.Wellenlaenge[i], test1.Einsnormiert[i]);
+                Funktion_normiert.Series["Series1"].Points.AddXY(test1.Wellenlaenge[i], test1.Counts[i]);
             }
         }
         //Offset
         private void Offset_Abziehen_Click(object sender, EventArgs e)
-        {   try
+        {
+            try
             {
                 test1.X1 = Int32.Parse(x1.Text); //x1 eingabe
             }
@@ -91,7 +101,8 @@ namespace Spektrum_Fertig
                 {
                     chart1.Series["Series1"].Points.AddXY(test1.Wellenlaenge[i], test1.Offset_liste[i]);
                 }
-            }catch { MessageBox.Show("Fehler in der Darstellung der Offset Funktion"); }
+            }
+            catch { MessageBox.Show("Fehler in der Darstellung der Offset Funktion"); }
         }
 
 
@@ -102,7 +113,8 @@ namespace Spektrum_Fertig
             try
             {
                 test1.X1 = Int32.Parse(vonx1.Text); //x1 eingabe
-            }catch { MessageBox.Show("Fehler bei der Eingabe von x1"); }
+            }
+            catch { MessageBox.Show("Fehler bei der Eingabe von x1"); }
             try
             {
                 test1.X2 = Int32.Parse(bisx2.Text); //x2 eingabe
@@ -131,86 +143,27 @@ namespace Spektrum_Fertig
         {
             Form1 f = new Form1();
             f.ShowDialog();
-           
+
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /* private void Wellenlänge_segmentieren_Click(object sender, EventArgs e)
-         {
-             test1.X1 = Int32.Parse(vonx11.Text); //x1 eingabe
-             test1.X2 = Int32.Parse(x22.Text); //x2 eingabe
-
-             test1.segmentausschneiden(test1.X1, test1.X2, test1.Wellenlaenge, test1.Well_segment);
-         }*/
-
-        /*private void Button_Chart_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            for (int i=0; i <= test1.Counts.Count - 1; i++)
-            {
-                Wirkfunktion.Series["Wirkfunktion"].Points.AddXY(test1.Wellenlaenge[i], test1.Counts[i]);
 
+            /*test2.getblaulichtwirk();
+            test2.getuvwirkfkt();
+            test2.getverbrennungsgefahrwirkfkt();
+*/
+            for(int i = 0; i < test1.Wellenlaenge.Count; i++)
+            {
+                listBox1.Items.Add(test1.Wellenlaenge[i]+" "+ test1.Counts[i]);
             }
 
-        }*/
+            
 
-        /* private void Normierte_funktion_laden_Click(object sender, EventArgs e)
-         {
-             for (int i = 0; i <= test1.Counts.Count - 1; i++)
-             {
-                 Funktion_normiert.Series["Series1"].Points.AddXY(test1.Wellenlaenge[i], test1.Einsnormiert[i]);
-             }
-         }
 
-         private void button1_Click(object sender, EventArgs e)
-         {
-             for (int i = 0; i <= test1.Counts.Count - 1; i++)
-             {
-                 chart1.Series["Series1"].Points.AddXY(test1.Wellenlaenge[i], test1.Offset_liste[i]);
-             }
-         }
-
-         private void button2_Click(object sender, EventArgs e)
-         {
-
-            /* for (int i = 0; i <= test1.Counts.Count - 1; i++)
-             {
-                 segmentierung_counts.Series["Series1"].Points.AddXY(test1.Wellenlaenge[i], test1.Counts_segment[i]);
-
-             }*/
+            
+        }
     }
+}
 
-       /*private void x1_TextChanged(object sender, EventArgs e)
-        {
-
-        }*/
-    }
 
