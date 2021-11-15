@@ -115,7 +115,7 @@ namespace Spektrum_Fertig
             this.flag.TabIndex = 4;
             this.flag.Text = "True(Fkt ist normiert)/false(nicht normiert)";
             this.flag.UseVisualStyleBackColor = true;
-            this.flag.Click += new System.EventHandler(this.flag_Click);
+            //this.flag.Click += new System.EventHandler(this.flag_Click);
             // 
             // eingabeflag
             // 

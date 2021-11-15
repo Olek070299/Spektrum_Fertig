@@ -47,14 +47,14 @@ namespace Spektrum_Fertig
 
         }
         //Flag eingabe
-        private void flag_Click(object sender, EventArgs e)
+      /* private void flag_Click(object sender, EventArgs e)
         {
             try
             {
                 test1.Flag = Convert.ToBoolean(eingabeflag.Text);
             }
             catch { MessageBox.Show("Eingabe Flag überprüfen"); }
-        }
+        }*/
 
 
         //Normieren
@@ -68,7 +68,7 @@ namespace Spektrum_Fertig
             }
             test1.Counts.Clear();
 
-            test1.normierung(test1.Einsnormiert, test1.Counts);//normiert auf knopf druck counts und speichert es in einsnormiert ab
+            test1.normierung(test1.Einsnormiert, test1.Counts, Convert.ToBoolean(eingabeflag.Text));//normiert auf knopf druck counts und speichert es in einsnormiert ab
 
             for (int i = 0; i <= test1.Counts.Count - 1; i++)
             {

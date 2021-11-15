@@ -63,13 +63,13 @@ namespace Spektrum_Fertig
             set { error = value; }
 
         }
-        private bool flag;
+       /* private bool flag;
         public bool Flag
         {
             get { return flag; }
             set { flag = value; }
 
-        }
+        }*/
 
         /*private string path = "";
         public string Path
@@ -146,7 +146,7 @@ namespace Spektrum_Fertig
         }
 
         int index = 0;
-
+        int flagg = 0;
 
 
         /* Methoden
@@ -322,8 +322,9 @@ namespace Spektrum_Fertig
 
 
         //Normierung übergabe von Ursprungsliste und Zielliste
-        public int normierung(List<double> Ursprungsliste, List<double> Zielliste)
+        public int normierung(List<double> Ursprungsliste, List<double> Zielliste,bool flag)
         {
+            flagg = 0;
             //wenn flag ==false starte normieren, 1. maximalen Wert aus liste Counts.2. neuer eintrag=Counts an der Stelle i geteilt durch Anzahl einträge
             if (flag == false)
             {
@@ -336,6 +337,7 @@ namespace Spektrum_Fertig
                     Zielliste.Add(ergebnis);
 
                 }
+                flagg = 1;
                 flag = true;
                 return 0;
             }
@@ -376,10 +378,10 @@ namespace Spektrum_Fertig
                 Zielliste.Add(Ursprungsliste[k] - mittelwert);
 
             }//Wenn bereits normiert, muss danach nochmal normiert werden
-            if (flag == true)
+            if (flagg==1)
             {
-                flag = false;
-                normierung(offset_liste, offset_einsnormiert);
+                flagg=0;
+                normierung(offset_liste, offset_einsnormiert, true);
 
             }
             else { }
