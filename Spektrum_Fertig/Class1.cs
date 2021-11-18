@@ -145,6 +145,9 @@ namespace Spektrum_Fertig
             set { zwcount = value; }
         }
 
+
+       
+
         int index = 0;
         int flagg = 0;
 
