@@ -227,7 +227,7 @@ namespace Spektrum_Fertig
 
             z = 0;
 
-            if (zwwell.Count == 1221)
+            if (zwwell.Count == 1221&&zwwell[0]==380)
             {
                 wellenlaenge.Clear();
                 counts.Clear();
@@ -302,6 +302,7 @@ namespace Spektrum_Fertig
                         z++;
 
                     }
+
                     for (int i = 0; i < zwwell.Count; i++)
                     {
                         wellenlaenge.Add(zwwell[i]);
@@ -316,6 +317,23 @@ namespace Spektrum_Fertig
 
 
             }
+
+            double sumup = 0;
+            for(int i = 0; i < wellenlaenge.Count; i++)
+            {
+
+                sumup = sumup + counts[i];
+
+            }
+
+            for(int i = 0; i < wellenlaenge.Count; i++)
+            {
+
+                counts[i] = counts[i] / sumup;
+
+            }
+
+          
              
 
 
