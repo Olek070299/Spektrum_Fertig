@@ -31,7 +31,10 @@ namespace Spektrum_Fertig
             {
                 try
                 {
-                    test1.readTextFile(@"E:\Bachelorarbeit Versuch 1\Spektrum_1.txt"); //lese Wellenlänge und counts aus
+                    test1.readTextFile(@"E:\Bachelorarbeit Versuch 1\Spektrum_1111.txt"); //lese Wellenlänge und counts aus
+                    test1.testdec(test1.Test=Convert.ToBoolean(textBox2.Text));
+                    test1.getspektrum2();
+
                 }
                 catch { MessageBox.Show("Fehler beim beim Laden.(Datei unterschiedliche Lang? Nur nullen ?"); }
             }

@@ -145,6 +145,9 @@ namespace Spektrum_Fertig
             set { zwcount = value; }
         }
 
+        private bool test=true;
+
+        public bool Test { get { return test; } set { test= value; } }
 
        
 
@@ -158,7 +161,7 @@ namespace Spektrum_Fertig
         */
 
 
-        public int readTextFile(string path)
+        public void readTextFile(string path)
         {
             //lese aus file(tabelle in 2 Listen speichern, aufgeteilt in Wellenlänge und counts)
 
@@ -180,18 +183,114 @@ namespace Spektrum_Fertig
                 counts = spalte2.Select(r => double.Parse(r)).ToList();
 
             }
+        }
+
+        public void testdec(bool test)
+        {
+            if (test == true)
+            {
+
+                for (int i = 0; i < wellenlaenge.Count; i++)
+                {
+                    wellenlaenge[i] = Math.Floor(wellenlaenge[i]);
+                }
+                int zaheler = 0;
+                double summ = 0;
+
+
+                for (int y = 0; y < wellenlaenge.Count; y++)
+                {
+                    for (int x = 0; x < wellenlaenge.Count; x++)
+                    {
+                        if (wellenlaenge[x] == wellenlaenge[y])
+                        {
+                            summ = summ + counts[x];
+                            zaheler++;
+
+
+                        }
+
+                        else
+                        {
+                            
+                        }
 
 
 
-            //wende Methoden auf Inhalt an. Die Ursprungslisten bleibt dabei erhalten
-            //  zieht offset von counts ab und schiebt das Ergebniss in offset_liste
-            /* normierung(counts, einsnormiert); //normiert counts und schiebt Ergebniss in einsnormiert
-                                               //normierung(offset_liste, offset_einsnormiert);                                    //normiert offset_liste und schiebt Ergebniss in einsnormiert
-             offsetabziehen(X1, X2, counts, offset_liste);
-             segmentausschneiden(X1, X2, counts, counts_segment);
-             segmentausschneiden(X1, X2, wellenlaenge, well_segment);*/
 
-           speicherrr = new double[1221];
+                    }
+                            zwcount.Add(summ / zaheler);
+                            summ = 0;
+                            zaheler = 0;
+
+
+                }
+                //Nur das Spektrum bearbeiten, wenn bei den Wellenlängen eine Dezimahlzahl vorhanden ist
+
+
+
+                if (zwcount.Count == wellenlaenge.Count)
+                {
+
+                    for (int y = 0; y < wellenlaenge.Count; y++)
+                    {
+
+                        if (wellenlaenge[y] == wellenlaenge[y + 1])
+                        {
+
+                            wellenlaenge.RemoveAt(y + 1);
+                            zwcount.RemoveAt(y + 1);
+
+                        }
+                        else { }
+
+                    }
+                    counts.Clear();
+
+
+                    for (int i = 0; i < wellenlaenge.Count; i++)
+                    {
+                        counts.Add(zwcount[i]);
+
+                    }
+
+                }
+                else { }
+
+
+                zwcount.Clear();
+
+            }
+            else { }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    //wende Methoden auf Inhalt an. Die Ursprungslisten bleibt dabei erhalten
+                    //  zieht offset von counts ab und schiebt das Ergebniss in offset_liste
+                    /* normierung(counts, einsnormiert); //normiert counts und schiebt Ergebniss in einsnormiert
+                                                       //normierung(offset_liste, offset_einsnormiert);                                    //normiert offset_liste und schiebt Ergebniss in einsnormiert
+                     offsetabziehen(X1, X2, counts, offset_liste);
+                     segmentausschneiden(X1, X2, counts, counts_segment);
+                     segmentausschneiden(X1, X2, wellenlaenge, well_segment);*/
+
+        public void getspektrum2() { 
+
+                    speicherrr = new double[1221];
             int z = 0;
             for(int i = 180; i <= 1400; i++)
             {
@@ -227,7 +326,7 @@ namespace Spektrum_Fertig
 
             z = 0;
 
-            if (zwwell.Count == 1221&&zwwell[0]==380)
+            if (zwwell.Count == 1221&&zwwell[0]==180)
             {
                 wellenlaenge.Clear();
                 counts.Clear();
@@ -333,17 +432,23 @@ namespace Spektrum_Fertig
 
             }
 
+           double ergebnis = 0; 
+          for(int i = 0; i < counts.Count; i++)
+            {
+                ergebnis = ergebnis + counts[i];
+
+            }
           
              
 
 
-                return 0;
+               
         }
 
+    
 
-
-        //Normierung übergabe von Ursprungsliste und Zielliste
-        public int normierung(List<double> Ursprungsliste, List<double> Zielliste,bool flag)
+    //Normierung übergabe von Ursprungsliste und Zielliste
+    public int normierung(List<double> Ursprungsliste, List<double> Zielliste,bool flag)
         {
             flagg = 0;
             //wenn flag ==false starte normieren, 1. maximalen Wert aus liste Counts.2. neuer eintrag=Counts an der Stelle i geteilt durch Anzahl einträge
