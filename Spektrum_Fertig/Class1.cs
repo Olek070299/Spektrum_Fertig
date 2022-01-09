@@ -63,13 +63,13 @@ namespace Spektrum_Fertig
             set { error = value; }
 
         }
-       /* private bool flag;
-        public bool Flag
-        {
-            get { return flag; }
-            set { flag = value; }
+        /* private bool flag;
+         public bool Flag
+         {
+             get { return flag; }
+             set { flag = value; }
 
-        }*/
+         }*/
 
         /*private string path = "";
         public string Path
@@ -77,6 +77,20 @@ namespace Spektrum_Fertig
             get { return path; }   // get method
             set { path = value; }  // set method
         }*/
+        private List<double> wellenlaengewirk = new List<double>();
+        public List<double> Wellenlaengewirk
+        {
+            get { return wellenlaengewirk; }   // get method
+            set { wellenlaengewirk = value; }  // set method
+        }
+
+
+        private List<double> countswirk = new List<double>();
+        public List<double> Countswirk
+        {
+            get { return countswirk; }   // get method
+            set { countswirk = value; }  // set method
+        }
 
 
 
@@ -181,88 +195,79 @@ namespace Spektrum_Fertig
                 //Wellenlänge =Spalte 1 der excel Tabelle, Counts =spalte 2 und konvertieren in double
                 wellenlaenge = spalte1.Select(s => double.Parse(s)).ToList();
                 counts = spalte2.Select(r => double.Parse(r)).ToList();
+                wellenlaengewirk = spalte1.Select(s => double.Parse(s)).ToList();
+                countswirk = spalte2.Select(r => double.Parse(r)).ToList();
+            }
+
+            for (int i = 0; i < wellenlaenge.Count; i++)
+            {
+                wellenlaenge[i] = Math.Floor(wellenlaenge[i]);
+            }
+            int zaheler = 0;
+            double summ = 0;
+
+
+            for (int y = 0; y < wellenlaenge.Count; y++)
+            {
+                for (int x = 0; x < wellenlaenge.Count; x++)
+                {
+                    if (wellenlaenge[x] == wellenlaenge[y])
+                    {
+                        summ = summ + counts[x];
+                        zaheler++;
+
+
+                    }
+
+                    else
+                    {
+                        zwcount.Add(summ / zaheler);
+                        summ = 0;
+                        zaheler = 0;
+                    }
+
+
+
+
+
+                }
+
 
             }
-        }
+            //Nur das Spektrum bearbeiten, wenn bei den Wellenlängen eine Dezimahlzahl vorhanden ist
 
-        public void testdec(bool test)
-        {
-            if (test == true)
+
+
+            if (zwcount.Count == wellenlaenge.Count)
             {
-
-                for (int i = 0; i < wellenlaenge.Count; i++)
-                {
-                    wellenlaenge[i] = Math.Floor(wellenlaenge[i]);
-                }
-                int zaheler = 0;
-                double summ = 0;
-
 
                 for (int y = 0; y < wellenlaenge.Count; y++)
                 {
-                    for (int x = 0; x < wellenlaenge.Count; x++)
+
+                    if (wellenlaenge[y] == wellenlaenge[y + 1])
                     {
-                        if (wellenlaenge[x] == wellenlaenge[y])
-                        {
-                            summ = summ + counts[x];
-                            zaheler++;
 
-
-                        }
-
-                        else
-                        {
-                            
-                        }
-
-
-
+                        wellenlaenge.RemoveAt(y + 1);
+                        zwcount.RemoveAt(y + 1);
 
                     }
-                            zwcount.Add(summ / zaheler);
-                            summ = 0;
-                            zaheler = 0;
-
+                    else { }
 
                 }
-                //Nur das Spektrum bearbeiten, wenn bei den Wellenlängen eine Dezimahlzahl vorhanden ist
+                counts.Clear();
 
 
-
-                if (zwcount.Count == wellenlaenge.Count)
+                for (int i = 0; i < wellenlaenge.Count; i++)
                 {
-
-                    for (int y = 0; y < wellenlaenge.Count; y++)
-                    {
-
-                        if (wellenlaenge[y] == wellenlaenge[y + 1])
-                        {
-
-                            wellenlaenge.RemoveAt(y + 1);
-                            zwcount.RemoveAt(y + 1);
-
-                        }
-                        else { }
-
-                    }
-                    counts.Clear();
-
-
-                    for (int i = 0; i < wellenlaenge.Count; i++)
-                    {
-                        counts.Add(zwcount[i]);
-
-                    }
+                    counts.Add(zwcount[i]);
 
                 }
-                else { }
-
-
-                zwcount.Clear();
 
             }
             else { }
-        }
+
+
+            zwcount.Clear();
 
 
 
@@ -280,19 +285,19 @@ namespace Spektrum_Fertig
 
 
 
-                    //wende Methoden auf Inhalt an. Die Ursprungslisten bleibt dabei erhalten
-                    //  zieht offset von counts ab und schiebt das Ergebniss in offset_liste
-                    /* normierung(counts, einsnormiert); //normiert counts und schiebt Ergebniss in einsnormiert
-                                                       //normierung(offset_liste, offset_einsnormiert);                                    //normiert offset_liste und schiebt Ergebniss in einsnormiert
-                     offsetabziehen(X1, X2, counts, offset_liste);
-                     segmentausschneiden(X1, X2, counts, counts_segment);
-                     segmentausschneiden(X1, X2, wellenlaenge, well_segment);*/
+            //wende Methoden auf Inhalt an. Die Ursprungslisten bleibt dabei erhalten
+            //  zieht offset von counts ab und schiebt das Ergebniss in offset_liste
+            /* normierung(counts, einsnormiert); //normiert counts und schiebt Ergebniss in einsnormiert
+                                               //normierung(offset_liste, offset_einsnormiert);                                    //normiert offset_liste und schiebt Ergebniss in einsnormiert
+             offsetabziehen(X1, X2, counts, offset_liste);
+             segmentausschneiden(X1, X2, counts, counts_segment);
+             segmentausschneiden(X1, X2, wellenlaenge, well_segment);*/
 
-        public void getspektrum2() { 
 
-                    speicherrr = new double[1221];
+
+            speicherrr = new double[1221];
             int z = 0;
-            for(int i = 180; i <= 1400; i++)
+            for (int i = 180; i <= 1400; i++)
             {
                 speicherrr[z] = i;
                 z++;
@@ -300,7 +305,7 @@ namespace Spektrum_Fertig
             }
             int zahler = 0;
             double laufindex = 0.0;
-            for(int i = 0; i < speicherrr.Length; i++)
+            for (int i = 0; i < speicherrr.Length; i++)
             {
                 for (int j = 0; j < wellenlaenge.Count; j++)
                 {
@@ -311,14 +316,14 @@ namespace Spektrum_Fertig
                         zwwell.Add(wellenlaenge[j]);
                         zwcount.Add(counts[j]);
                         zahler++;
-                        if (zahler == 1) { laufindex = wellenlaenge[j]-180; }
+                        if (zahler == 1) { laufindex = wellenlaenge[j] - 180; }
                         else { }
 
 
                     }
                     else
                     {
-                       
+
                     }
 
                 }
@@ -326,7 +331,7 @@ namespace Spektrum_Fertig
 
             z = 0;
 
-            if (zwwell.Count == 1221&&zwwell[0]==180)
+            if (zwwell.Count == 1221 && zwwell[0] == 180)
             {
                 wellenlaenge.Clear();
                 counts.Clear();
@@ -341,7 +346,8 @@ namespace Spektrum_Fertig
                 wellenlaenge.Clear();
                 counts.Clear();
 
-                if (zwwell[0] != 180 && zwwell[zwwell.Count - 1] != 1400) {
+                if (zwwell[0] != 180 && zwwell[zwwell.Count - 1] != 1400)
+                {
 
                     while (z <= laufindex - 1)
                     {
@@ -351,31 +357,32 @@ namespace Spektrum_Fertig
                         z++;
 
                     }
-                for (int i = 0; i < zwwell.Count; i++)
-                {
-                    wellenlaenge.Add(zwwell[i]);
-                    counts.Add(zwcount[i]);
+                    for (int i = 0; i < zwwell.Count; i++)
+                    {
+                        wellenlaenge.Add(zwwell[i]);
+                        counts.Add(zwcount[i]);
 
-                }
+                    }
 
-                    laufindex = 1400 - zwwell[zwwell.Count-1];
+                    laufindex = 1400 - zwwell[zwwell.Count - 1];
                     index = 0;
-                    while (laufindex!=index) { 
+                    while (laufindex != index)
+                    {
 
                         //zwwell.Add(1400-laufindex);
-                        wellenlaenge.Add(1400-laufindex+1);
+                        wellenlaenge.Add(1400 - laufindex + 1);
                         counts.Add(0);
                         laufindex--;
 
-                }
-                    
-                
-                }
-            
+                    }
 
 
-            
-               else if (zwwell[0] == 180 && zwwell[zwwell.Count - 1] != 1400)
+                }
+
+
+
+
+                else if (zwwell[0] == 180 && zwwell[zwwell.Count - 1] != 1400)
                 {
                     laufindex = 1400 - zwwell[zwwell.Count - 1];
                     index = 0;
@@ -416,7 +423,8 @@ namespace Spektrum_Fertig
 
 
             }
-
+        }
+            public void flaechenormieren() { 
             double sumup = 0;
             for(int i = 0; i < wellenlaenge.Count; i++)
             {
@@ -433,11 +441,7 @@ namespace Spektrum_Fertig
             }
 
            double ergebnis = 0; 
-          for(int i = 0; i < counts.Count; i++)
-            {
-                ergebnis = ergebnis + counts[i];
-
-            }
+         
           
              
 
@@ -445,42 +449,9 @@ namespace Spektrum_Fertig
                
         }
 
-    
+        
 
-    //Normierung übergabe von Ursprungsliste und Zielliste
-    public int normierung(List<double> Ursprungsliste, List<double> Zielliste,bool flag)
-        {
-            flagg = 0;
-            //wenn flag ==false starte normieren, 1. maximalen Wert aus liste Counts.2. neuer eintrag=Counts an der Stelle i geteilt durch Anzahl einträge
-            if (flag == false)
-            {
-                double maxcount = Ursprungsliste.Max();
-
-                for (int i = 0; i <= Ursprungsliste.Count - 1; i++)
-                {
-
-                    double ergebnis = Ursprungsliste[i] / maxcount;
-                    Zielliste.Add(ergebnis);
-
-                }
-                flagg = 1;
-                flag = true;
-                return 0;
-            }
-            else
-            {
-
-                //Wenn flag = true Liste bereits normiert=> Ursprungsliste=Zielliste
-                for (int i = 0; i <= Ursprungsliste.Count - 1; i++)
-                {
-
-                    Zielliste.Add(Ursprungsliste[i]);
-                }
-
-                return 0;
-            }
-
-        }
+       
 
         //Offset 
 
@@ -504,13 +475,7 @@ namespace Spektrum_Fertig
                 Zielliste.Add(Ursprungsliste[k] - mittelwert);
 
             }//Wenn bereits normiert, muss danach nochmal normiert werden
-            if (flagg==1)
-            {
-                flagg=0;
-                normierung(offset_liste, offset_einsnormiert, true);
-
-            }
-            else { }
+          
 
             return 0;
         }

@@ -31,9 +31,9 @@ namespace Spektrum_Fertig
             {
                 try
                 {
-                    test1.readTextFile(@"E:\Bachelorarbeit Versuch 1\Spektrum_1111.txt"); //lese Wellenlänge und counts aus
-                    test1.testdec(test1.Test=Convert.ToBoolean(textBox2.Text));
-                    test1.getspektrum2();
+                    test1.readTextFile(@"E:\Bachelorarbeit Versuch 1\Spektrum_12.txt"); //lese Wellenlänge und counts aus
+                   /* test1.testdec(test1.Test=Convert.ToBoolean(textBox2.Text));*/
+                   
 
                 }
                 catch { MessageBox.Show("Fehler beim beim Laden.(Datei unterschiedliche Lang? Nur nullen ?"); }
@@ -61,23 +61,7 @@ namespace Spektrum_Fertig
 
 
         //Normieren
-        private void Normieren_Click(object sender, EventArgs e)
-        {
-            for(int i = 0; i < test1.Counts.Count; i++)
-            {
-                test1.Einsnormiert.Add(test1.Counts[i]);
-
-
-            }
-            test1.Counts.Clear();
-
-            test1.normierung(test1.Einsnormiert, test1.Counts, Convert.ToBoolean(eingabeflag.Text));//normiert auf knopf druck counts und speichert es in einsnormiert ab
-
-            for (int i = 0; i <= test1.Counts.Count - 1; i++)
-            {
-                Funktion_normiert.Series["Series1"].Points.AddXY(test1.Wellenlaenge[i], test1.Counts[i]);
-            }
-        }
+       
         //Offset
         private void Offset_Abziehen_Click(object sender, EventArgs e)
         {
@@ -166,6 +150,8 @@ namespace Spektrum_Fertig
 
             
         }
+
+       
     }
 }
 

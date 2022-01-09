@@ -29,21 +29,20 @@ namespace Spektrum_Fertig
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.loadData = new System.Windows.Forms.Button();
-            this.Normieren = new System.Windows.Forms.Button();
             this.Offset_Abziehen = new System.Windows.Forms.Button();
             this.Segmentausschneiden = new System.Windows.Forms.Button();
             this.flag = new System.Windows.Forms.Button();
@@ -61,7 +60,6 @@ namespace Spektrum_Fertig
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Wirkfunktion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Funktion_normiert)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -77,16 +75,6 @@ namespace Spektrum_Fertig
             this.loadData.Text = "LoadData";
             this.loadData.UseVisualStyleBackColor = true;
             this.loadData.Click += new System.EventHandler(this.loadData_Click);
-            // 
-            // Normieren
-            // 
-            this.Normieren.Location = new System.Drawing.Point(49, 121);
-            this.Normieren.Name = "Normieren";
-            this.Normieren.Size = new System.Drawing.Size(75, 66);
-            this.Normieren.TabIndex = 1;
-            this.Normieren.Text = "Funktion Normieren";
-            this.Normieren.UseVisualStyleBackColor = true;
-            this.Normieren.Click += new System.EventHandler(this.Normieren_Click);
             // 
             // Offset_Abziehen
             // 
@@ -159,81 +147,81 @@ namespace Spektrum_Fertig
             // 
             // Wirkfunktion
             // 
-            chartArea5.AxisX.Title = "Wellenlänge in nm";
-            chartArea5.AxisY.Title = "Counts";
-            chartArea5.Name = "ChartArea1";
-            this.Wirkfunktion.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.Wirkfunktion.Legends.Add(legend5);
+            chartArea1.AxisX.Title = "Wellenlänge in nm";
+            chartArea1.AxisY.Title = "Counts";
+            chartArea1.Name = "ChartArea1";
+            this.Wirkfunktion.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.Wirkfunktion.Legends.Add(legend1);
             this.Wirkfunktion.Location = new System.Drawing.Point(1042, 23);
             this.Wirkfunktion.MaximumSize = new System.Drawing.Size(1000, 1000);
             this.Wirkfunktion.Name = "Wirkfunktion";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series5.Legend = "Legend1";
-            series5.Name = "Wirkfunktion";
-            this.Wirkfunktion.Series.Add(series5);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
+            series1.Name = "Wirkfunktion";
+            this.Wirkfunktion.Series.Add(series1);
             this.Wirkfunktion.Size = new System.Drawing.Size(328, 254);
             this.Wirkfunktion.TabIndex = 13;
             this.Wirkfunktion.Text = "Wirkfunktion";
             // 
             // Funktion_normiert
             // 
-            chartArea6.AxisX.Title = "Wellenlänge";
-            chartArea6.AxisY.Title = "Counts_Normiert";
-            chartArea6.Name = "ChartArea1";
-            this.Funktion_normiert.ChartAreas.Add(chartArea6);
-            legend6.Name = "Normierte_Funktion";
-            legend6.Title = "Normierte_Funktion";
-            this.Funktion_normiert.Legends.Add(legend6);
+            chartArea2.AxisX.Title = "Wellenlänge";
+            chartArea2.AxisY.Title = "Counts_Normiert";
+            chartArea2.Name = "ChartArea1";
+            this.Funktion_normiert.ChartAreas.Add(chartArea2);
+            legend2.Name = "Normierte_Funktion";
+            legend2.Title = "Normierte_Funktion";
+            this.Funktion_normiert.Legends.Add(legend2);
             this.Funktion_normiert.Location = new System.Drawing.Point(689, 23);
             this.Funktion_normiert.Name = "Funktion_normiert";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series6.Legend = "Normierte_Funktion";
-            series6.Name = "Series1";
-            this.Funktion_normiert.Series.Add(series6);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Legend = "Normierte_Funktion";
+            series2.Name = "Series1";
+            this.Funktion_normiert.Series.Add(series2);
             this.Funktion_normiert.Size = new System.Drawing.Size(315, 254);
             this.Funktion_normiert.TabIndex = 15;
             this.Funktion_normiert.Text = "Normierte_Funktion";
-            title2.Name = "Normierte_Funktion";
-            title2.Text = "Normierte_Funktion";
-            this.Funktion_normiert.Titles.Add(title2);
+            title1.Name = "Normierte_Funktion";
+            title1.Text = "Normierte_Funktion";
+            this.Funktion_normiert.Titles.Add(title1);
             // 
             // chart1
             // 
-            chartArea7.AxisX.Title = "Wellenlänge";
-            chartArea7.AxisY.Title = "Counts_Offset";
-            chartArea7.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.chart1.Legends.Add(legend7);
+            chartArea3.AxisX.Title = "Wellenlänge";
+            chartArea3.AxisY.Title = "Counts_Offset";
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(1042, 329);
             this.chart1.Name = "chart1";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.chart1.Series.Add(series7);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(340, 223);
             this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             // 
             // segmentierung_counts
             // 
-            chartArea8.AxisX.Title = "Wellenlänge in nm";
-            chartArea8.AxisY.Title = "Counts";
-            chartArea8.Name = "ChartArea1";
-            this.segmentierung_counts.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.segmentierung_counts.Legends.Add(legend8);
+            chartArea4.AxisX.Title = "Wellenlänge in nm";
+            chartArea4.AxisY.Title = "Counts";
+            chartArea4.Name = "ChartArea1";
+            this.segmentierung_counts.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.segmentierung_counts.Legends.Add(legend4);
             this.segmentierung_counts.Location = new System.Drawing.Point(689, 329);
             this.segmentierung_counts.Name = "segmentierung_counts";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            this.segmentierung_counts.Series.Add(series8);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.segmentierung_counts.Series.Add(series4);
             this.segmentierung_counts.Size = new System.Drawing.Size(315, 223);
             this.segmentierung_counts.TabIndex = 19;
             this.segmentierung_counts.Text = "chart2";
@@ -283,20 +271,11 @@ namespace Spektrum_Fertig
             this.textBox1.TabIndex = 27;
             this.textBox1.Text = "Leistung eingeben";
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(130, 58);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(125, 20);
-            this.textBox2.TabIndex = 28;
-            this.textBox2.Text = "Wellenlängen gerade?";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1461, 657);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.listBox1);
@@ -314,7 +293,6 @@ namespace Spektrum_Fertig
             this.Controls.Add(this.flag);
             this.Controls.Add(this.Segmentausschneiden);
             this.Controls.Add(this.Offset_Abziehen);
-            this.Controls.Add(this.Normieren);
             this.Controls.Add(this.loadData);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -330,7 +308,6 @@ namespace Spektrum_Fertig
         #endregion
 
         private System.Windows.Forms.Button loadData;
-        private System.Windows.Forms.Button Normieren;
         private System.Windows.Forms.Button Offset_Abziehen;
         private System.Windows.Forms.Button Segmentausschneiden;
         private System.Windows.Forms.Button flag;
@@ -348,7 +325,6 @@ namespace Spektrum_Fertig
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
